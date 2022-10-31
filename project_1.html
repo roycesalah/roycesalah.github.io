@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Disneyland Sentiment Analysis Project - Royce Salah</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Return to portfolio</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">About me</a></li>
+							<li class="active"><a href="project_1.html">Projects</a></li>
+							<li><a href="resume.html">Resume</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/royce-salah-b28b0b1a6/" target="_blank" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+							<li><a href="https://github.com/roycesalah" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<article>
+							<header class="major">
+								<h1>Disneyland Sentiment Analysis</h1>
+							</header>
+						<h2>Executive Summary</h2>
+						<p style="font-family:helvetica">
+							This project centers around the concept of sentiment analysis visualization of a Disneyland
+							review dataset using WordClouds. By utilizing SQL queries, Tableau visualizations,
+							and Python, the data is analyzed to identify customer satisfaction trends and create a
+							visualization of words most commonly appearing in positive and negative reviews.
+						</p>
+						<h2>Introduction</h2>
+						<p style="font-family:helvetica">
+							Scouring the endless supply of Kaggle datasets, I stumbled across
+							<a href="https://www.kaggle.com/datasets/arushchillar/disneyland-reviews?resource=download">this</a>
+							dataset which contained data totalling ~42,000 reviews from Trip Advisor for three Disneyland locations:
+							Paris, California, and Hong Kong. The dataset looked interesting enough, but what really interested
+							me was what insights I could pull from the review text and see if I could identify problem points
+							at each location.
+						</p>
+						<h2>Analysis</h2>
+						<p style="font-family:helvetica">
+							The first step in analyzing the data was finding the average rating by location as well as
+							how they changed with respect to time.
+						</p >
+							<h4>Query 1: Return average rating and total ratings by park location</h4>
+							<pre><code>SELECT Branch,AVG(Rating) as Avg_Rating, COUNT(Review_ID) as Num_Reviews
+FROM `test-project-357201.disney_project.disney_data`
+GROUP BY Branch
+</code></pre>
+
+							<h4>Query 2: Group ratings by park and month</h4>
+							<pre><code>SELECT Branch, Year_Month, AVG(Rating) as Avg_Rating, COUNT(Review_ID) as Num_Reviews
+FROM `test-project-357201.disney_project.disney_data`
+WHERE Year_Month != "missing"
+GROUP BY Year_Month, Branch
+ORDER BY Year_Month DESC, Branch
+LIMIT 1000
+</code></pre>
+
+							<span class="image fit"><img src="project_pages/project_images/project_1/tableau_disney_rating_vs_time.png" alt="" /></span>
+
+							<p style="font-family:helvetica">
+								Using the results from Query 2, the rating for each park over
+								time (seen above) was created using Tableau. From inspection, it's observed
+								that the California location received the highest reviews for nearly 9 years (averaging
+								a rating of 4.4), while Paris received the worst ratings (averaging a rating of 3.9).
+								<br/><br/>
+								Before continuing into analyzing the review text, it's important to understand the
+								breakdown of park visitor origins to provide further context to the analysis. Using Query 3,
+								data for all the reviewer locations for each park are retrieved which are then visualized
+								using Tableau.
+							</p>
+
+							<h4>Query 3: Reviewer location by park location</h4>
+							<pre><code>SELECT Reviewer_Location,COUNT(Review_ID) as Num_Visitors
+FROM `test-project-357201.disney_project.disney_data`
+WHERE Branch = "Disneyland_[Branch]"
+GROUP BY Reviewer_Location
+LIMIT 1000
+</code></pre>
+							<span class="image fit"><img src="project_pages/project_images/project_1/tableau_allparks_reviewer_location.png" alt="" /></span>
+							<h4>Reviewer location breakdown for individual parks - Click images to open in new tab</h4>
+							<div class="box alt">
+										<div class="row gtr-50 gtr-uniform">
+											<div class="col-4"><a href="project_pages/project_images/project_1/tableau_california_reviewer_location.png" target="_blank" class="image fit"><img src="project_pages/project_images/project_1/tableau_california_reviewer_location.png" alt="" /></span></a></div>
+											<div class="col-4"><a href="project_pages/project_images/project_1/tableau_paris_reviewer_location.png" target="_blank" class="image fit"><img src="project_pages/project_images/project_1/tableau_paris_reviewer_location.png" alt="" /></span></a></div>
+											<div class="col-4"><a href="project_pages/project_images/project_1/tableau_hongkong_reviewer_location.png" class="image fit"><img src="project_pages/project_images/project_1/tableau_hongkong_reviewer_location.png" alt="" /></span></a></div>
+										</div>
+							</div>
+							<p style="font-family:helvetica">
+								Based on data, the bulk of reviews come from the United States and United Kingdom.
+								While the visualizations help show where the reviews are coming from, it's important to
+								note that this data is not representative of the parks actual visitors. Since the data
+								is collected from Trip Advisor, there is bias for countries that primarily use
+								the website for travel reviews. This is likely why Hong Kong doesn't appear in even
+								the top five reviewer locations for Disneyland Hong Kong.
+							</p>
+							<p style="font-family:helvetica">
+								To conduct the sentiment analysis, a SQL query is used to extract the dataset for
+								one-star reviews from each location and is then fed into a Python script to read,
+								analyze, and create the WordCloud diagram. In order to identify problem areas, words
+								that relate to the park name itself or long lines were ignored as they both frequently
+								appear reviews, regardless of rating.
+							</p>
+							<h4>Query 4: Extract one-star ratings filtering for each park</h4>
+							<pre><code>SELECT Review_ID,Review_Text
+FROM `test-project-357201.disney_project.disney_data`
+WHERE Branch = "Disneyland_[Branch]", Rating = 1
+LIMIT 1000</code></pre>
+							<h4>Python 1: Script to create WordClouds from CSV data</h4>
+							<pre><code>import pandas as pd
+import numpy as np
+import plotly.express as px
+from wordcloud import WordCloud,STOPWORDS
+from PIL import Image
+
+# Read csv with pandas
+df = pd.read_csv("Disneyland/DisneylandReviews.csv",encoding="latin-1")
+
+# Histogram distribution of all ratings
+fig = px.histogram(df,x="Rating")
+fig.update_layout(title_text="Ratings")
+fig.show()
+
+# Create stopwords list and append additional stopwords
+newstops = list(STOPWORDS)
+liststops = ["Disneyland","Disney","Ride",
+            "Park","rides","day","one","Paris",
+            "Hong","Kong","line","queue","time",
+            "will","wait","hour","minute","minutes",
+            "queues","hours","lines"]
+for i in liststops:
+    newstops.append(i)
+
+# Import circle mask and create wordcloud to save to file
+circle_mask = np.array(Image.open("Disneyland/circle_mask.png"))
+text = " ".join(text for text in df.Review_Text)
+wc = WordCloud(width=700,height=700,stopwords=newstops,mask=circle_mask,background_color="white",max_words=500,min_word_length=3).generate(text)
+wc.to_file("Disneyland/wordcloud_all.png")</code></pre>
+							<style>
+							img {
+							  display: block;
+							  margin-left: auto;
+							  margin-right: auto;
+							}
+							</style>
+
+							<div class="box">
+							<h4>California One-Star Review WordCloud</h4>
+							<img src="project_pages/project_images/project_1/wordcloud_california_1star.png" alt="" style="width: 70%"/>
+							</div>
+
+							<div class="box">
+							<h4>Paris One-Star Review WordCloud</h4>
+							<img src="project_pages/project_images/project_1/wordcloud_paris_1star.png" alt="" style="width: 70%" />
+							</div>
+
+							<div class="box">
+							<h4>Hong Kong One-Star Review WordCloud</h4>
+							<img src="project_pages/project_images/project_1/wordcloud_hongkong_1star.png" alt="" style="width: 70%" />
+							</div>
+
+							<p style="font-family:helvetica">
+								The three WordClouds share many of the same commonly occurring words, but one point that
+								stands out is that "staff" and "food" are starkly more recurring in the Paris and Hong Kong
+								reviews compared to the California reviews.
+
+								While inspecting the data, another point that stood out was that "closed" appeared more
+								commonly in the Paris reviews compared to the other parks. After further research, renovations
+								and maintenance have caused various ride closures throughout the years.
+							</p>
+
+						<h2>Conclusion</h2>
+							<p style="font-family:helvetica">
+								WordClouds proved to be an effective method in visualizing review data. By controlling
+								for stop words, areas needing improvement such as staff, food, and ride closures become
+								more clear. While results seem promising, the data may be skewed in favor of English-speaking
+								reviewers which would lead to an unrepresentative model especially of the Hong Kong branch
+								as seen in the reviewer location breakdowns.
+							</p>
+
+						</article>
+					</div>
+
+
+				<!-- Footer -->
+					<footer id="footer">
+<!--						<section>-->
+<!--							<form method="post" action="#">-->
+<!--								<div class="fields">-->
+<!--									<div class="field">-->
+<!--										<label for="name">Name</label>-->
+<!--										<input type="text" name="name" id="name" />-->
+<!--									</div>-->
+<!--									<div class="field">-->
+<!--										<label for="email">Email</label>-->
+<!--										<input type="text" name="email" id="email" />-->
+<!--									</div>-->
+<!--									<div class="field">-->
+<!--										<label for="message">Message</label>-->
+<!--										<textarea name="message" id="message" rows="3"></textarea>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								<ul class="actions">-->
+<!--									<li><input type="submit" value="Send Message" /></li>-->
+<!--								</ul>-->
+<!--							</form>-->
+<!--						</section>-->
+						<section class="split contact">
+							<section class="alt">
+								<h3>Located in</h3>
+								<p style="font-family:helvetica">San Jose, CA</p>
+							</section>
+<!--							<section>-->
+<!--								<h3>Phone</h3>-->
+<!--								<p><a href="#">(408) 707-2154</a></p>-->
+<!--							</section>-->
+							<section>
+								<h3>Email</h3>
+								<p style="font-family:helvetica"><a href="#">roycesalah@gmail.com</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+<!--									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>-->
+<!--									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>-->
+<!--									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>-->
+									<li><a href="https://github.com/roycesalah" target="_blank" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="https://www.linkedin.com/in/royce-salah-b28b0b1a6/" target="_blank" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>Design: <a href="https://html5up.net" target="_blank">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
