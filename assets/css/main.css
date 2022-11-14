@@ -148,7 +148,7 @@ input, select, textarea {
 	}
 
 	body, input, select, textarea {
-		font-family: "Merriweather", Georgia, serif;
+		font-family: "Helvetica", Georgia, serif;
 		font-weight: 300;
 		font-size: 1rem;
 		line-height: 2.375;
@@ -176,16 +176,16 @@ input, select, textarea {
 	}
 
 	p {
-		text-align: justify;
+		text-align: left;
 		margin: 0 0 2rem 0;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		font-family: "Source Sans Pro", Helvetica, sans-serif;
+		font-family: "Helvetica", sans-serif;
 		font-weight: 900;
 		line-height: 1.5;
-		letter-spacing: 0.075em;
-		text-transform: uppercase;
+		letter-spacing: 0.015em;
+		text-transform: capitalize;
 		margin: 0 0 1rem 0;
 	}
 
@@ -2946,7 +2946,7 @@ input, select, textarea {
 
 		header.major {
 			margin: 0 0 4rem 0;
-			text-align: center;
+			text-align: left;
 		}
 
 			header.major > :last-child {
@@ -2955,7 +2955,7 @@ input, select, textarea {
 
 			header.major > p {
 				margin-top: 0;
-				text-align: center;
+				text-align: left;
 			}
 
 			header.major > .date {
@@ -3566,13 +3566,13 @@ input, select, textarea {
 			border-style: solid;
 			border-color: #ffffff;
 			border-width: 5px !important;
-			font-family: "Source Sans Pro", Helvetica, sans-serif;
+			font-family: "Helvetica", sans-serif;
 			font-size: 2.25rem;
 			font-weight: 900;
 			letter-spacing: 0.075em;
 			line-height: 1;
 			padding: 1rem 1.75rem;
-			text-transform: uppercase;
+			text-transform: capitalize;
 			visibility: visible;
 		}
 
@@ -3766,7 +3766,6 @@ input, select, textarea {
 
 		#main > * {
 			padding: 4rem 4rem 2rem 4rem ;
-			border-top: solid 2px #eeeeee;
 			margin: 0;
 		}
 
@@ -3779,7 +3778,7 @@ input, select, textarea {
 		}
 
 		#main > .post {
-			padding: 8rem 8rem 6rem 8rem ;
+			padding: 4rem 4rem 2rem 4rem ;
 		}
 
 			#main > .post header.major > .date {
@@ -3799,7 +3798,7 @@ input, select, textarea {
 			@media screen and (max-width: 1280px) {
 
 				#main > .post {
-					padding: 6rem 4rem 4rem 4rem ;
+					padding: 6rem 4rem 0rem 4rem ;
 				}
 
 			}
@@ -3857,14 +3856,14 @@ input, select, textarea {
 			}
 
 			#main > .posts > * {
-				padding: 4rem;
+				padding: 0rem 4rem 4rem 4rem;
 				width: 50%;
 			}
 
 			#main > .posts > article {
 				border-color: #eeeeee;
 				border-left-width: 2px;
-				border-style: solid;
+
 				border-top-width: 2px;
 				text-align: center;
 			}
@@ -3910,7 +3909,7 @@ input, select, textarea {
 				}
 
 				#main > .posts > article:nth-child(-n + 2) {
-					border-top-width: 2px;
+					border-top-width: 0px;
 				}
 
 				#main > .posts > article:nth-child(n) {
