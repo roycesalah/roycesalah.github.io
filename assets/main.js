@@ -16,12 +16,8 @@ window.addEventListener('DOMContentLoaded', () => {
     observer.observe(section);
   });
 
-<<<<<<< HEAD
-});
-=======
+
 });
 
 
 
-
->>>>>>> 9a2f0dd (First commit)

@@ -6,11 +6,7 @@ html {
 /* 2. Make nav sticky */
 main > nav {
   position: sticky;
-<<<<<<< HEAD
-  top: 2rem;
-=======
   top: 3rem;
->>>>>>> 9a2f0dd (First commit)
   align-self: start;
 }
 
@@ -18,20 +14,10 @@ main > nav {
 .section-nav li.active > a {
   color: #333;
   font-weight: 500;
-<<<<<<< HEAD
-}
-
-/* Sidebar Navigation */
-.section-nav {
-  padding-left: 20;
-  border-left: 3px solid black;
-}
-=======
   padding-left: 10;
   border-left: 5px solid black;
 }
 
->>>>>>> 9a2f0dd (First commit)
 
 .section-nav a {
   text-decoration: none;
@@ -53,11 +39,8 @@ main > nav {
 
 html, body {
   background: #fff;
-<<<<<<< HEAD
-=======
   margin: 0;
   padding: 0;
->>>>>>> 9a2f0dd (First commit)
 }
 
 body {
@@ -113,10 +96,7 @@ section-post {
   white-space: nowrap;
   animation: typing 1.75s steps(25, end) forwards, blinking .8s infinite;
   font-size: 4rem;
-<<<<<<< HEAD
-=======
   font-weight: bold;
->>>>>>> 9a2f0dd (First commit)
   width: 0;
 }
 @keyframes typing {
@@ -136,15 +116,13 @@ section-post {
   width: 10rem;
 }
 
-<<<<<<< HEAD
-=======
+
 .center-fit {
   object-fit: scale-down; /* Do not scale the image */
   object-position: center; /* Center the image within the element */
   width: 10rem;
 }
 
->>>>>>> 9a2f0dd (First commit)
 	.image {
 		border: 0;
 		display: inline-block;
@@ -281,11 +259,8 @@ section-post {
   padding: 10px;
 }
 
-<<<<<<< HEAD
-/* Download Resume */
-=======
+
 /* Email */
->>>>>>> 9a2f0dd (First commit)
 .fa-envelope {
   background: black;
   color: white;
@@ -294,14 +269,12 @@ section-post {
   padding: 10px;
 }
 
-<<<<<<< HEAD
-=======
 .fa-arrow-right {
   color: black;
   padding: 10px;
 }
 
->>>>>>> 9a2f0dd (First commit)
+
 /* Reset Link styles */
 .da {
   color: inherit;
@@ -312,8 +285,6 @@ section-post {
 .da:hover {
   opacity: 0.7;
 }
-<<<<<<< HEAD
-=======
 
 /* Reset Header Link styles */
 .daa {
@@ -380,4 +351,3 @@ table.highlight-table:hover {
   background-color: #F5F5F5;
   box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.5); /* Add shadow on top */
 }
->>>>>>> 9a2f0dd (First commit)
