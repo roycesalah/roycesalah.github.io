@@ -1,3 +1,48 @@
+
+/* 0. Responsive Font Sizing */
+@media screen and (max-width: 1280px) {
+	html {
+		font-size: 14px;
+	}
+}
+
+@media screen and (max-width: 858px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    html {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 702px) {
+    html {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 624px) {
+    html {
+        font-size: 9px;
+    }
+}
+
+@media screen and (max-width: 623px) {
+    html {
+        font-size: 8px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    html {
+        font-size: 5px;
+    }
+}
+
+
 /* 1. Enable smooth scrolling */
 html {
   scroll-behavior: smooth;
@@ -15,7 +60,7 @@ main > nav {
   color: #333;
   font-weight: 500;
   padding-left: 10;
-  border-left: 5px solid black;
+  border-left: .35rem solid black;
 }
 
 
@@ -63,12 +108,12 @@ h1 {
 /** page layout **/
 main {
   display: grid;
-  grid-template-columns: 1fr 15em;
+  grid-template-columns: 1fr 15rem;
   max-width: 100em;
   width: 90%;
   margin: 0 auto;
   padding-bottom: 8rem;
-  padding-left: 7rem
+  padding-left: 0rem
 }
 
 /** Sections **/
@@ -76,7 +121,7 @@ section {
   padding-bottom: 0rem;
   padding-top: 2rem;
   padding-left: 3rem;
-  padding-right: 6rem;
+  padding-right: 2rem;
 }
 
 section-post {
@@ -116,7 +161,7 @@ section-post {
   width: 10rem;
 }
 
-
+/* Center and fit school logos */
 .center-fit {
   object-fit: scale-down; /* Do not scale the image */
   object-position: center; /* Center the image within the element */
@@ -225,12 +270,19 @@ section-post {
   text-decoration: none;
 }
 
-/* Add a hover effect if you want */
+/* Add a hover effect */
 .fa:hover {
   opacity: 0.7;
 }
 
-/* Set a specific color for each brand */
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .fa {
+    font-size: 24px;
+    width: 32px;
+    padding: 8px; /* Adjust padding for smaller screens */
+  }
+}
 
 /* Github */
 .fa-github {
@@ -308,7 +360,7 @@ section-post {
   margin-top: 5px;
   margin-bottom: 5px;
   color: white;
-  font-size:12;
+  font-size:.7rem;
   font-weight: bold;
 }
 
@@ -321,6 +373,7 @@ section-post {
     margin: 0;
     margin-bottom: .5rem;
     line-height: 150%;
+    font-size: 1rem
 }
 
 p {
@@ -333,6 +386,13 @@ color: black}
 a {
 text-decoration:none}
 
+h2 {
+font-size: 1.5rem;
+}
+
+h3 {
+font-size: 1.25rem
+}
 
 /* Define the styles for the table */
 table.highlight-table {
@@ -343,7 +403,7 @@ table.highlight-table {
 }
 table.highlight-table th,
 table.highlight-table td {
-  padding: 10px;
+  padding: .5rem;
   text-align: left;
 }
 
