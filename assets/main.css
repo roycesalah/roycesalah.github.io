@@ -321,21 +321,29 @@ section-post {
   padding: 10px;
 }
 
-.fa-arrow-right {
+.fa-cloud-download {
   color: black;
   padding: 10px;
 }
 
+.fa-cloud-download:hover {
+  opacity: 1;
+}
 
 /* Reset Link styles */
 .da {
   color: inherit;
-  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 3px solid #ffffff;
+  transition: border-bottom-color .25s ease-in-out;
+
 }
 
 /* Add a hover effect */
 .da:hover {
-  opacity: 0.7;
+  border-bottom: 3px solid #3498DB;
+  /*transition: border-bottom .05s ease-in-out;*/
+  transition: border-bottom-color .25s ease-in-out;
 }
 
 /* Reset Header Link styles */
@@ -413,17 +421,15 @@ table.highlight-table:hover {
   box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.5); /* Add shadow on top */
 }
 
-
-
+/* General Gradient Text Class */
 .gradient-text{
-  font-family:"Abril Fatface", sans-serif;
+  font-family: sans-serif;
   background: linear-gradient(to right, #FFB64D,#FF8C4D,#FF6666,#C066FF,#7F66FF,#00A3CC);
   background-size: 200% 200%;
   animation: rainbow 1s ease-in-out infinite;
   background-clip: text;
   -webkit-background-clip:text;
   color:rgba(0,0,0,1);
-  display:inline-block;
   transition: color .15s ease-in-out;
   font-weight:bold;
 }
