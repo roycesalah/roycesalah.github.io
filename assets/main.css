@@ -2,43 +2,42 @@
 /* 0. Responsive Font Sizing */
 @media screen and (max-width: 1280px) {
 	html {
-		font-size: 14px;
+		font-size: 16px;
 	}
 }
 
-@media screen and (max-width: 858px) {
+
+
+@media screen and (max-width: 900px) {
+    html {
+        font-size: 14px;
+    }
+
+    main {
+      display: block !important; /* Switch to block layout on small screens */
+      width: 100% !important; /* Ensure full width */
+    }
+    
+    main > nav {
+      display: none !important; /* Force hide the navigation */
+    }
+    
+    section {
+      padding-left: 2rem !important; /* Remove extra padding on smaller screens */
+      padding-right: 2rem !important;
+    }
+
+}
+
+@media screen and (max-width: 624px) {
     html {
         font-size: 12px;
     }
 }
 
-@media screen and (max-width: 780px) {
-    html {
-        font-size: 11px;
-    }
-}
-
-@media screen and (max-width: 702px) {
-    html {
-        font-size: 10px;
-    }
-}
-
-@media screen and (max-width: 624px) {
-    html {
-        font-size: 9px;
-    }
-}
-
-@media screen and (max-width: 623px) {
-    html {
-        font-size: 8px;
-    }
-}
-
 @media screen and (max-width: 400px) {
     html {
-        font-size: 5px;
+        font-size:11px;
     }
 }
 
